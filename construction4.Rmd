@@ -1,0 +1,554 @@
+---
+title: "construction"
+output: pdf_document
+---
+```{r}
+list.fileDesc <- list.files("../resuvou4_ANGLE_B/")
+
+file1 <- read.delim(paste("../resuvou4_ANGLE_B/", list.fileDesc[1], sep="/"),  header=TRUE, row.names = 1)
+
+resun <- matrix(NA, nrow = length(list.fileDesc), ncol = ncol(file1))
+colnames(resun) <- colnames(file1)
+
+
+#resun = NULL
+
+for(i in 1:length(list.fileDesc)){
+  file1 <- read.delim(paste("../resuvou4_ANGLE_B/", list.fileDesc[i], sep="/"),  header=TRUE, row.names = 1)
+  resun[i, colnames(file1)] <- as.numeric(file1[1,])
+
+}
+
+rownames(resun) = gsub("trjconv_","",gsub(".pdb_superpos.pdbreslist.txt","",list.fileDesc))
+
+write.table(resun, file="matrice_angB_1020Struct.csv", col.names = T, row.names=T, quote=FALSE,sep = ",")
+toto<- read.csv("matrice_angB_1020Struct.csv")
+resun<- read.csv("matrice_angB_1020Struct.csv")
+```
+
+
+```{r}
+pdb_6UPJ <- read.delim("~/Bureau/projet_long/resuvou2/6UPJ_superpos.pdbreslist.txt",  header=TRUE, row.names = 1)
+pdb_5UPJ <- read.delim("~/Bureau/projet_long/resuvou2/5UPJ_superpos.pdbreslist.txt",  header=TRUE, row.names = 1)
+pdb_4UPJ <- read.delim("~/Bureau/projet_long/resuvou2/4UPJ_superpos.pdbreslist.txt",  header=TRUE, row.names = 1)
+pdb_3UPJ <- read.delim("~/Bureau/projet_long/resuvou2/3UPJ_superpos.pdbreslist.txt",  header=TRUE, row.names = 1)
+pdb_3S45 <- read.delim("~/Bureau/projet_long/resuvou2/3S45_superpos.pdbreslist.txt",  header=TRUE, row.names = 1)
+pdb_3ECG <- read.delim("~/Bureau/projet_long/resuvou2/3ECG_superpos.pdbreslist.txt",  header=TRUE, row.names = 1)
+pdb_3EC0 <- read.delim("~/Bureau/projet_long/resuvou2/3EC0_superpos.pdbreslist.txt",  header=TRUE, row.names = 1)
+pdb_3EBZ <- read.delim("~/Bureau/projet_long/resuvou2/3EBZ_superpos.pdbreslist.txt",  header=TRUE, row.names = 1)
+pdb_2MIP <- read.delim("~/Bureau/projet_long/resuvou2/2MIP_superpos.pdbreslist.txt",  header=TRUE, row.names = 1)
+pdb_2HPF <- read.delim("~/Bureau/projet_long/resuvou2/2HPF_superpos.pdbreslist.txt",  header=TRUE, row.names = 1)
+pdb_2HPE <- read.delim("~/Bureau/projet_long/resuvou2/2HPE_superpos.pdbreslist.txt",  header=TRUE, row.names = 1)
+pdb_1JLD <- read.delim("~/Bureau/projet_long/resuvou2/1JLD_superpos.pdbreslist.txt",  header=TRUE, row.names = 1)
+pdb_1IVQ <- read.delim("~/Bureau/projet_long/resuvou2/1IVQ_superpos.pdbreslist.txt",  header=TRUE, row.names = 1)
+pdb_1IVP <- read.delim("~/Bureau/projet_long/resuvou2/1IVP_superpos.pdbreslist.txt",  header=TRUE, row.names = 1)
+pdb_1IDB <- read.delim("~/Bureau/projet_long/resuvou2/1IDB_superpos.pdbreslist.txt",  header=TRUE, row.names = 1)
+pdb_1IDA <- read.delim("~/Bureau/projet_long/resuvou2/1IDA_superpos.pdbreslist.txt",  header=TRUE, row.names = 1)
+pdb_1HSI <- read.delim("~/Bureau/projet_long/resuvou2/1HSI_superpos.pdbreslist.txt",  header=TRUE, row.names = 1)
+pdb_1HSH <- read.delim("~/Bureau/projet_long/resuvou2/1HSH_superpos.pdbreslist.txt",  header=TRUE, row.names = 1)
+pdb_1HII <- read.delim("~/Bureau/projet_long/resuvou2/1HII_superpos.pdbreslist.txt",  header=TRUE, row.names = 1)
+```
+
+```{r}
+dim(pdb_1HII)
+dim(pdb_1HSH)
+dim(pdb_1HSI)
+dim(pdb_1IDA)
+dim(pdb_1IDB)
+dim(pdb_1IVP)
+dim(pdb_1IVQ)
+dim(pdb_1JLD)
+dim(pdb_3EBZ)
+dim(pdb_3EC0)
+dim(pdb_3ECG)
+dim(pdb_3S45)
+dim(pdb_3UPJ)
+```
+
+
+```{r}
+#same=which((colnames(pdb_3EBZ) %in% colnames(pdb_6UPJ)))
+#pdb_3EBZf=pdb_3EBZ[,same]
+same=which((colnames(pdb_3ECG) %in% colnames(pdb_6UPJ)))
+pdb_3ECGf=pdb_3ECG[,same]
+#same=which((colnames(pdb_3EC0) %in% colnames(pdb_6UPJ)))
+#pdb_3EC0f=pdb_3EC0[,same]
+same=which((colnames(pdb_3S45) %in% colnames(pdb_6UPJ)))
+pdb_3S45f=pdb_3S45[,same]
+
+```
+
+```{r}
+`%not_in%` <- purrr::negate(`%in%`)
+same=which((colnames(pdb_3ECG) %not_in% colnames(pdb_3UPJ)))
+LISTnom= (names(pdb_6UPJ)[same])
+#matrice_na<-matrix(data = NA, nrow = length(nrow(pdb_1HII)), ncol = length(LISTnom))
+#colnames(matrice_na)<- LISTnom
+#pdb_3UPJf=cbind(pdb_3UPJ, matrice_na)
+LISTnom
+```
+
+```{r}
+dim(pdb_1HII)
+dim(pdb_1HSH)
+dim(pdb_1HSI)
+dim(pdb_1IDA)
+dim(pdb_1IDB)
+dim(pdb_1IVP)
+dim(pdb_1IVQ)
+dim(pdb_1JLD)
+dim(pdb_3EBZ)
+dim(pdb_3EC0)
+dim(pdb_3ECGf)
+dim(pdb_3S45f)
+dim(pdb_5UPJ2)
+```
+
+
+```{r}
+pdbf=rbind(pdb_1HII,pdb_1HSH, pdb_1HSI, pdb_1IDA, pdb_1IDB, pdb_1IVP, pdb_1IVQ, pdb_1JLD, pdb_2HPE, pdb_2HPF, pdb_2MIP, pdb_3EBZ, pdb_3EC0, pdb_3ECG, pdb_3S45, pdb_3UPJ, pdb_4UPJ, pdb_5UPJ, pdb_6UPJ)
+```
+
+
+
+```{r}
+write.table(pdbf, "tableauresfinal.csv")
+```
+
+
+```{r}
+resun <- read.table("~/Bureau/projet_long/analyse2/matrice_dist_1020Struct.csv", comment.char="", sep=";")
+```
+
+```{r}
+which(is.na(resun),arr.ind=TRUE)
+resun<-resun[,1:12529]
+```
+
+```{r}
+coef<-function(data){
+  moy<-apply(data, 2, FUN = mean)
+  std<- apply(data, 2, FUN = sd)
+  coefvar<- moy/std
+  return(coefvar)
+}
+colv<-which(abs(coef(resun))>=0.001)
+resu<- resun[,colv ]
+dim(resu)
+```
+
+```{r}
+scalcut<-scale(resu, center=TRUE, scale = TRUE)
+boxplot(scalcut, las=2)
+```
+
+
+
+
+
+```{r}
+scal<-scale(resu, center=TRUE, scale = TRUE)
+diste<-dist(scal,method="euclidean")
+distem<-data.matrix(diste)
+dim.mat <- ncol(distem)
+```
+
+
+
+```{r}
+lattice::levelplot(distem, xlab="", ylab="",scales=list(cex=0.5))
+```
+
+
+
+```{r}
+cor_X = cor(resu)
+cor_X_sansdiag = cor_X
+diag(cor_X_sansdiag) = 0
+corrplot::corrplot(cor_X_sansdiag[0:100,0:100], tl.cex = 0.5)
+```
+
+
+```{r}
+cor_X_sansdiag
+```
+
+
+```{r}
+# ++++++++++++++++++++++++++++
+# flattenCorrMatrix
+# ++++++++++++++++++++++++++++
+# cormat : matrix of the correlation coefficients
+# pmat : matrix of the correlation p-values
+flattenCorrMatrix <- function(cormat, pmat) {
+  ut <- upper.tri(cormat)
+  data.frame(
+    row = rownames(cormat)[row(cormat)[ut]],
+    column = rownames(cormat)[col(cormat)[ut]],
+    cor  =(cormat)[ut],
+    p = pmat[ut]
+    )
+}
+
+```
+
+
+```{r}
+library(Hmisc)
+res<-rcorr(as.matrix(resu))
+cormat<-flattenCorrMatrix(res$r, res$P)
+```
+
+```{r}
+corinte<-which(abs(cormat$p)>=0.000001)
+cormat2<- cormat[corinte,]
+```
+
+```{r}
+cormat2
+```
+
+```{r}
+corinte2<-which(abs(cormat2$cor)>=0.6)
+cormat3<- cormat2[corinte2,]
+cormat3
+max(cormat$cor)
+```
+
+
+
+
+
+
+```{r}
+hucl2=hclust(diste,method = "average")
+plot(hucl2,hang = -1)
+rect.hclust(hucl2, k = 4)
+```
+
+```{r}
+variance=0
+variance=c()
+     for (k in 1:10) {
+       clusters2=kmeans(resu, centers=k)
+       variance=c(variance,clusters2$tot.withinss)
+     }
+plot(variance, type = "b")
+```
+
+
+```{r}
+library(factoextra)
+distx=as.matrix(dist(scale(resu),method="euclidean"))
+factoextra::fviz_nbclust(distx, FUNcluster =hcut, 
+                         method = "wss")
+```
+
+
+
+```{r}
+library(FactoMineR)
+
+resu2 <- resu
+rownames(resu2) <- gsub("_superpos.pdb","", rownames(resu))
+
+
+```
+
+
+
+
+```{r}
+
+library(FactoMineR)
+pca.res <- PCA(resu2, graph=FALSE)
+plot(pca.res, choix="var")
+
+```
+
+```{r}
+plot(pca.res, choix="ind",max.overlaps=5)
+```
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+pca.res <- PCA(resu2, graph=FALSE)
+plot(pca.res, choix="var", label="none")
+plot(pca.res, choix="ind", label="none")
+```
+
+
+
+# etude des descripteurs de la littérature
+
+Deux choses : 
+
+* une forte correlation entre certains descripteurs : car se basent sur des résidus proche (49-49 et 50-50, ...)
+* de faible corrélation alors qu'ils devraient décrire la même chose   
+ exemple : les distances 50-50 et 25-50 sont les plus utilisées pour caractériser la conformation des flaps.
+```{r}
+plot(resun[,"distAB50_50"], resun[,"distA25_50"])
+cor(resun[,"distAB50_50"], resun[,"distA25_50"])
+```
+
+$\rightarrow$ aucune correlation
+$\rightarrow$ n'apporte la même information
+
+$\rightarrow$ apporter une nouvelle caractérisation des flaps la plus diverse possible
+
+
+# etude de nouveaux descripteurs
+
+## calcul des descripteurs
+
+Une description systématique de la PR2 en prenant en compte toutes les régions et pas uniquement les flaps.  
+$\rightarrow$ 2415 descripteurs
+
+Le choix des résidus pris en compte dans les descripteurs
+Illustrations 
+
+
+## selection des descripteurs pour classer les flaps
+
+1. suppression des descripteurs avec variance nulle
+
+2. Etude de la corrélation
+
+* identifier les descripteurs qui sont fortement corrélés : 
+    + ils se basent sur des résidus identiques ?   
+    Travailler avec les descripteurs corrélés avec un abs(r)>0.90
+```{r}
+tmp <- which(cor_X_sansdiag>0.85, arr.ind=T)
+couple.desc.cor <- paste(colnames(cor_X_sansdiag)[tmp[,1]], colnames(cor_X_sansdiag)[tmp[,2]], sep="-")
+
+d1 <- colnames(cor_X_sansdiag)[tmp[,1]]
+d2 <- colnames(cor_X_sansdiag)[tmp[,2]]
+
+d2.tmp <- unlist(strsplit(d2,"_"))
+d2.res2 <- as.numeric(gsub("\\.","",d2.tmp[seq(2,length(d2.tmp),2)]))
+d2.res1 <- as.numeric(gsub("\\.","",gsub("[distA|distAB|distB]","",d2.tmp[seq(1,length(d2.tmp),2)])))
+
+d1.tmp <- unlist(strsplit(d1,"_"))
+d1.res2 <- as.numeric(gsub("\\.","",d1.tmp[seq(2,length(d1.tmp),2)]))
+d1.res1 <- as.numeric(gsub("\\.","",gsub("[distA|distAB|distB]","",d1.tmp[seq(1,length(d1.tmp),2)])))
+
+#distance qui ont le 1er identique
+dist.supp1 <- which(d1.res1==d2.res1)
+
+#distance qui ont le 2ème identique
+dist.supp1 <- c(dist.supp1, which(d1.res2==d2.res2))
+
+#distance qui ont le 1er et 2ème identiques
+dist.supp1 <- c(dist.supp1, which(d1.res1==d2.res2))
+
+#distance qui ont le 1er identique
+dist.supp1 <- c(dist.supp1, which(d1.res2==d2.res1))
+
+length(unique(dist.supp1))
+length(couple.desc.cor)
+
+
+couple.desc.cor.cons <- couple.desc.cor[-unique(dist.supp1)]
+
+couple.38 <- grep(38, couple.desc.cor.cons)
+couple.39 <- grep(39, couple.desc.cor.cons)
+dist.supp2 <- unique(intersect(couple.38, couple.39))
+
+couple.desc.cor.cons2 <- couple.desc.cor.cons[-dist.supp2]
+
+couple.38 <- grep(50, couple.desc.cor.cons2)
+couple.39 <- grep(51, couple.desc.cor.cons2)
+dist.supp2 <- unique(intersect(couple.38, couple.39))
+
+couple.desc.cor.cons3 <- couple.desc.cor.cons2[-dist.supp2]
+
+
+couple.38 <- grep(52, couple.desc.cor.cons3)
+couple.39 <- grep(51, couple.desc.cor.cons3)
+dist.supp2 <- unique(intersect(couple.38, couple.39))
+
+couple.desc.cor.cons4 <- couple.desc.cor.cons3[-dist.supp2]
+
+
+couple.38 <- grep(52, couple.desc.cor.cons4)
+couple.39 <- grep(50, couple.desc.cor.cons4)
+dist.supp2 <- unique(intersect(couple.38, couple.39))
+
+couple.desc.cor.cons5 <- couple.desc.cor.cons4[-dist.supp2]
+
+
+couple.38 <- grep(49, couple.desc.cor.cons5)
+couple.39 <- grep(50, couple.desc.cor.cons5)
+dist.supp2 <- unique(intersect(couple.38, couple.39))
+
+couple.desc.cor.cons6 <- couple.desc.cor.cons5[-dist.supp2]
+
+
+```
+
+    
+forte correlation = résidus identique ou proche dans la séquence
+
+$\rightarrow$ supprime les fortes correlation
+
+`findCorrelation()`
+
+
+
+```{r}
+tmp <- which(cor_X_sansdiag<0.85, arr.ind=T)
+couple.desc.cor <- paste(colnames(cor_X_sansdiag)[tmp[,1]], colnames(cor_X_sansdiag)[tmp[,2]], sep="-")
+
+
+
+```
+
+
+
+
+
+
+
+```{r}
+library(caret)
+var.Supp <- findCorrelation(cor_X_sansdiag, cutoff=0.8)
+length(var.Supp)
+
+resu2 <- resu[,-var.Supp]
+dim(resu2)
+write.table(resu2, "matrice_angleB_filter.csv")
+resfffff <- read.table("~/Bureau/projet_long/analyse2/matrice_angleB_filter.csv", quote="\"", comment.char="")
+```
+
+
+
+```{r}
+mat.cor2 <- cor(resu2)
+hc.desc <- hclust(as.dist(1-abs(mat.cor2)), method="ward.D2" )
+plot(hc.desc, labels = FALSE)
+rect.hclust(hc.desc, h=0.8)
+
+groupe <-cutree(hc.desc, h=0.8)
+table(groupe)
+```
+
+
+
+
+
+```{r}
+scal<-scale(resu2, center=TRUE, scale = TRUE)
+diste<-dist(scal,method="euclidean")
+distem<-data.matrix(diste)
+dim.mat <- ncol(distem)
+```
+
+
+```{r}
+hucl2=hclust(diste, method="ward.D2")
+plot(hucl2)
+#rect.hclust(hucl2, h=55)
+```
+
+
+
+
+
+
+
+```{r}
+library(FactoMineR)
+pca.res2 <- PCA(resu2, graph=FALSE)
+plot(pca.res2, choix="var", label = "none")
+```
+
+
+
+
+```{r}
+resA <- read.table("~/Bureau/projet_long/analyse2/matrice_angleA_filter.csv", quote="\"", comment.char="")
+resB <- read.table("~/Bureau/projet_long/analyse2/matrice_angleB_filter.csv", quote="\"", comment.char="")
+dim(resA)
+dim(resB)
+resA_B<- merge( resA, resB ,row.names = 1 )
+dim(resA_B)
+which(is.na(resA_B),arr.ind=TRUE)
+```
+
+```{r}
+cor_X = cor(resA_B)
+cor_X_sansdiag = cor_X
+diag(cor_X_sansdiag) = 0
+```
+
+
+```{r}
+library(caret)
+var.Supp <- findCorrelation(cor_X_sansdiag, cutoff=0.8)
+length(var.Supp)
+
+resu2 <- resu[,-var.Supp]
+dim(resu2)
+```
+
+
+```{r}
+> write.table(resff, file="matrice_angA_B_1020Struct.csv", col.names = T, row.names=T, quote=FALSE,sep = ",")
+> toto<- read.csv("matrice_angA_B_1020Struct.csv")
+> View(toto)
+```
+
+```{r}
+
+```
+```{r}
+res <- read.table("~/Bureau/projet_long/analyse2/matrice_dist_angA_B_nonfilter_1020Struct.csv", quote="\"", comment.char="", sep =',')
+which(is.na(res),arr.ind=TRUE)
+
+```
+
+```{r}
+cor_X = cor(res)
+cor_X_sansdiag = cor_X
+diag(cor_X_sansdiag) = 0
+corrplot::corrplot(cor_X_sansdiag[0:100,0:100], tl.cex = 0.5)
+```
+
+```{r}
+library(caret)
+var.Supp <- findCorrelation(cor_X_sansdiag, cutoff=0.8)
+length(var.Supp)
+
+res2 <- res[,-var.Supp]
+dim(res2)
+res3 <- res[,var.Supp]
+dim(res3)
+```
+
+```{r}
+tmp <- which(cor_X_sansdiag>0.80, arr.ind=T)
+couple.desc.cor <- paste(colnames(cor_X_sansdiag)[tmp[,1]], colnames(cor_X_sansdiag)[tmp[,2]], sep="-")
+```
+
+```{r}
+couple.desc.cor
+list0=list(couple.desc.cor[1])
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+

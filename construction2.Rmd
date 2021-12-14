@@ -1,0 +1,282 @@
+---
+title: "construction"
+output: pdf_document
+---
+
+```{r}
+pdb_6UPJ3 <- read.delim("~/Bureau/projet_long/resuvou2/ANGLE/6UPJ_superpos.pdbresass3list.txt",  header=TRUE, row.names = 1)
+pdb_5UPJ3 <- read.delim("~/Bureau/projet_long/resuvou2/ANGLE/5UPJ_superpos.pdbresass3list.txt",  header=TRUE, row.names = 1)
+pdb_4UPJ3 <- read.delim("~/Bureau/projet_long/resuvou2/ANGLE/4UPJ_superpos.pdbresass3list.txt",  header=TRUE, row.names = 1)
+pdb_3UPJ3 <- read.delim("~/Bureau/projet_long/resuvou2/ANGLE/3UPJ_superpos.pdbresass3list.txt",  header=TRUE, row.names = 1)
+pdb_3S453 <- read.delim("~/Bureau/projet_long/resuvou2/ANGLE/3S45_superpos.pdbresass3list.txt",  header=TRUE, row.names = 1)
+pdb_3ECG3 <- read.delim("~/Bureau/projet_long/resuvou2/ANGLE/3ECG_superpos.pdbresass3list.txt",  header=TRUE, row.names = 1)
+pdb_3EC03 <- read.delim("~/Bureau/projet_long/resuvou2/ANGLE/3EC0_superpos.pdbresass3list.txt",  header=TRUE, row.names = 1)
+pdb_3EBZ3 <- read.delim("~/Bureau/projet_long/resuvou2/ANGLE/3EBZ_superpos.pdbresass3list.txt",  header=TRUE, row.names = 1)
+pdb_2MIP3 <- read.delim("~/Bureau/projet_long/resuvou2/ANGLE/2MIP_superpos.pdbresass3list.txt",  header=TRUE, row.names = 1)
+pdb_2HPF3 <- read.delim("~/Bureau/projet_long/resuvou2/ANGLE/2HPF_superpos.pdbresass3list.txt",  header=TRUE, row.names = 1)
+pdb_2HPE3 <- read.delim("~/Bureau/projet_long/resuvou2/ANGLE/2HPE_superpos.pdbresass3list.txt",  header=TRUE, row.names = 1)
+pdb_1JLD3 <- read.delim("~/Bureau/projet_long/resuvou2/ANGLE/1JLD_superpos.pdbresass3list.txt",  header=TRUE, row.names = 1)
+pdb_1IVQ3 <- read.delim("~/Bureau/projet_long/resuvou2/ANGLE/1IVQ_superpos.pdbresass3list.txt",  header=TRUE, row.names = 1)
+pdb_1IVP3 <- read.delim("~/Bureau/projet_long/resuvou2/ANGLE/1IVP_superpos.pdbresass3list.txt",  header=TRUE, row.names = 1)
+pdb_1IDB3 <- read.delim("~/Bureau/projet_long/resuvou2/ANGLE/1IDB_superpos.pdbresass3list.txt",  header=TRUE, row.names = 1)
+pdb_1IDA3 <- read.delim("~/Bureau/projet_long/resuvou2/ANGLE/1IDA_superpos.pdbresass3list.txt",  header=TRUE, row.names = 1)
+pdb_1HSI3 <- read.delim("~/Bureau/projet_long/resuvou2/ANGLE/1HSI_superpos.pdbresass3list.txt",  header=TRUE, row.names = 1)
+pdb_1HSH3 <- read.delim("~/Bureau/projet_long/resuvou2/ANGLE/1HSH_superpos.pdbresass3list.txt",  header=TRUE, row.names = 1)
+pdb_1HII3 <- read.delim("~/Bureau/projet_long/resuvou2/ANGLE/1HII_superpos.pdbresass3list.txt",  header=TRUE, row.names = 1)
+```
+
+```{r}
+dim(pdb_1HII3)
+dim(pdb_1HSH3)
+dim(pdb_1HSI3)
+dim(pdb_1IDA3)
+dim(pdb_1IDB3)
+dim(pdb_1IVP3)
+dim(pdb_1IVQ3)
+dim(pdb_1JLD3)
+dim(pdb_3EBZ3)
+dim(pdb_3EC03)
+dim(pdb_3ECG3)
+dim(pdb_3S453)
+dim(pdb_3UPJ3)
+```
+
+
+```{r}
+#same=which((colnames(pdb_3EBZ) %in% colnames(pdb_6UPJ)))
+#pdb_3EBZf=pdb_3EBZ[,same]
+same=which((colnames(pdb_3ECG) %in% colnames(pdb_6UPJ)))
+pdb_3ECGf=pdb_3ECG[,same]
+#same=which((colnames(pdb_3EC0) %in% colnames(pdb_6UPJ)))
+#pdb_3EC0f=pdb_3EC0[,same]
+same=which((colnames(pdb_3S45) %in% colnames(pdb_6UPJ)))
+pdb_3S45f=pdb_3S45[,same]
+
+```
+
+```{r}
+`%not_in%` <- purrr::negate(`%in%`)
+same=which((colnames(pdb_3ECG) %not_in% colnames(pdb_3UPJ)))
+LISTnom= (names(pdb_6UPJ)[same])
+#matrice_na<-matrix(data = NA, nrow = length(nrow(pdb_1HII)), ncol = length(LISTnom))
+#colnames(matrice_na)<- LISTnom
+#pdb_3UPJf=cbind(pdb_3UPJ, matrice_na)
+LISTnom
+```
+
+```{r}
+dim(pdb_1HII)
+dim(pdb_1HSH)
+dim(pdb_1HSI)
+dim(pdb_1IDA)
+dim(pdb_1IDB)
+dim(pdb_1IVP)
+dim(pdb_1IVQ)
+dim(pdb_1JLD)
+dim(pdb_3EBZ)
+dim(pdb_3EC0)
+dim(pdb_3ECG)
+dim(pdb_3S45)
+dim(pdb_5UPJ)
+```
+
+
+```{r}
+pdbf3=rbind(pdb_1HII3,pdb_1HSH3, pdb_1HSI3, pdb_1IDA3, pdb_1IDB3, pdb_1IVP3, pdb_1IVQ3, pdb_1JLD3, pdb_2HPE3, pdb_2HPF3, pdb_2MIP3, pdb_3EBZ3, pdb_3EC03, pdb_3ECG3, pdb_3S453, pdb_3UPJ3, pdb_4UPJ3, pdb_5UPJ3, pdb_6UPJ3)
+```
+
+
+
+```{r}
+write.table(pdbf3, "tableauresdist_angle.csv")
+```
+
+
+```{r}
+resun <- read.table("~/Bureau/projet_long/analyse2/tableauresdist_angle.csv", quote="\"", comment.char="")
+```
+
+```{r}
+which(is.na(resun),arr.ind=TRUE)
+#resun<-resun[,1:27474]
+```
+
+```{r}
+coef<-function(data){
+  moy<-apply(data, 2, FUN = mean)
+  std<- apply(data, 2, FUN = sd)
+  coefvar<- moy/std
+  return(coefvar)
+}
+colv<-which(abs(coef(resun))>=0.001)
+resu<- resun[,colv ]
+```
+
+```{r}
+scalcut<-scale(resu, center=TRUE, scale = TRUE)
+boxplot(scalcut, las=2)
+```
+
+
+
+
+
+```{r}
+scal<-scale(resu, center=TRUE, scale = TRUE)
+diste<-dist(scal,method="euclidean")
+distem<-data.matrix(diste)
+dim.mat <- ncol(distem)
+```
+
+
+
+```{r}
+lattice::levelplot(distem, xlab="", ylab="",scales=list(cex=0.5))
+```
+
+
+
+```{r}
+cor_X = cor(resu)
+cor_X_sansdiag = cor_X
+diag(cor_X_sansdiag) = 0
+corrplot::corrplot(cor_X_sansdiag[0:100,0:100], tl.cex = 0.5)
+```
+
+
+```{r}
+cor_X_sansdiag
+```
+
+
+```{r}
+# ++++++++++++++++++++++++++++
+# flattenCorrMatrix
+# ++++++++++++++++++++++++++++
+# cormat : matrix of the correlation coefficients
+# pmat : matrix of the correlation p-values
+flattenCorrMatrix <- function(cormat, pmat) {
+  ut <- upper.tri(cormat)
+  data.frame(
+    row = rownames(cormat)[row(cormat)[ut]],
+    column = rownames(cormat)[col(cormat)[ut]],
+    cor  =(cormat)[ut],
+    p = pmat[ut]
+    )
+}
+
+```
+
+
+```{r}
+library(Hmisc)
+res<-rcorr(as.matrix(resu))
+cormat<-flattenCorrMatrix(res$r, res$P)
+```
+
+```{r}
+corinte<-which(abs(cormat$p)>=0.005)
+cormat2<- cormat[corinte,]
+```
+
+```{r}
+cormat2
+```
+
+```{r}
+corinte2<-which(abs(cormat2$cor)>=0.6)
+cormat3<- cormat2[corinte2,]
+cormat3
+max(cormat$cor)
+```
+
+
+
+
+
+```{r}
+hucl2=hclust(diste,method = "average")
+plot(hucl2,hang = -1)
+rect.hclust(hucl2, k = 4)
+```
+
+```{r}
+variance=0
+variance=c()
+     for (k in 1:10) {
+       clusters2=kmeans(resu, centers=k)
+       variance=c(variance,clusters2$tot.withinss)
+     }
+plot(variance, type = "b")
+```
+
+
+```{r}
+library(factoextra)
+distx=as.matrix(dist(scale(resu),method="euclidean"))
+factoextra::fviz_nbclust(distx, FUNcluster =hcut, 
+                         method = "wss")
+```
+
+
+
+```{r}
+library(FactoMineR)
+
+resu2 <- resu
+rownames(resu2) <- gsub("_superpos.pdb","", rownames(resu))
+
+
+```
+
+
+
+
+```{r}
+
+library(FactoMineR)
+pca.res <- PCA(resu2, graph=FALSE)
+plot(pca.res, choix="var")
+
+```
+
+```{r}
+plot(pca.res, choix="ind",max.overlaps=5)
+```
+
+
+
+
+
+
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+
+
+
+```{r}
+
+```
+
